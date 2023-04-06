@@ -12,7 +12,7 @@ let client = new Client(clientId, clientSecret, username, apiKey);
 // process_document() is a method that takes in a file path and returns a promise with the response data extracted from the document
 /* 
 const response = async () =>
-    await client.process_document("hematology-report-1.jpg");
+    await client.process_document("../assets/reports/hematology-report-1.jpg");
 response().then((data) => console.log(data)); 
 */
 
