@@ -11,8 +11,32 @@ datasource db {
 }
 
 model User {
-  id        Int      @default(autoincrement()) @id
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id               String   @id @default(uuid())
+  name             String
+  email            String   @unique
+  age              Int
+  bloodGroup       String?
+  height           String?
+  weight           String?
+  contactNum       String?
+  address          String?
+  emergencyContact String?
+  role             String   @default("patient")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Patient relation
+  // malignancies         Malignancy[] @relation("patientMalignancies")
+  // medicalReports       MedicalReport[] @relation("patientMedicalReports")
+  // patients_doctors     PatientDoctor[] @relation("patientDoctors")
+
+  // Doctor relation
+  // doctorDepartment     Department? @relation("departmentDoctors", fields: [doctorDepartmentId], references: [id])
+  // doctorDepartmentId   Int?
+  // doctor_patients      PatientDoctor[] @relation("doctorPatients")
+
+  // Admin relation
+  // admin_doctors        Doctor[]    @relation("adminDoctors")
+  // admin_patients       Patient[]   @relation("adminPatients")
+  // admin_departments    Department[] @relation("adminDepartments")
 }
