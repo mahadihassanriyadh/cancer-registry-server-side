@@ -11,32 +11,70 @@ datasource db {
 }
 
 model User {
-  id               String   @id @default(uuid())
+  id               String    @id @default(uuid())
   name             String
-  email            String   @unique
-  age              Int
+  email            String    @unique
+  dateOfBirth      DateTime?
   bloodGroup       String?
   height           String?
   weight           String?
-  contactNum       String?
+  contactNum       String?   @unique
   address          String?
   emergencyContact String?
-  role             String   @default("patient")
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  role             Role      @default(PATIENT)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 
-  // Patient relation
-  // malignancies         Malignancy[] @relation("patientMalignancies")
-  // medicalReports       MedicalReport[] @relation("patientMedicalReports")
-  // patients_doctors     PatientDoctor[] @relation("patientDoctors")
+  // patient fields
+  malignancies   Malignancy[]
+  medicalReports MedicalReport[] @relation("userMeicalReport")
+  doctors        DoctorPatient[] @relation("doctorOfPatient")
 
-  // Doctor relation
-  // doctorDepartment     Department? @relation("departmentDoctors", fields: [doctorDepartmentId], references: [id])
-  // doctorDepartmentId   Int?
-  // doctor_patients      PatientDoctor[] @relation("doctorPatients")
+  // doctor fields
+  treatedPatients DoctorPatient[] @relation("patientOfDoctor")
 
-  // Admin relation
-  // admin_doctors        Doctor[]    @relation("adminDoctors")
-  // admin_patients       Patient[]   @relation("adminPatients")
-  // admin_departments    Department[] @relation("adminDepartments")
+  @@index([email], name: "user_email")
+}
+
+enum Role {
+  PATIENT
+  DOCTOR
+  ADMIN
+}
+
+model Malignancy {
+  id        String   @id @default(uuid())
+  name      String
+  patients  User[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MedicalTest {
+  id        String          @id @default(uuid())
+  name      String          @unique
+  reports   MedicalReport[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+}
+
+model MedicalReport {
+  id        String      @id @default(uuid())
+  data      Json
+  test      MedicalTest @relation(fields: [testId], references: [id])
+  testId    String
+  patient   User        @relation("userMeicalReport", fields: [patientId], references: [id])
+  patientId String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model DoctorPatient {
+  id        String   @id @default(uuid())
+  doctor    User     @relation("doctorOfPatient", fields: [doctorId], references: [id])
+  doctorId  String
+  patient   User     @relation("patientOfDoctor", fields: [patientId], references: [id])
+  patientId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
