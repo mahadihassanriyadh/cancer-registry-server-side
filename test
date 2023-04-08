@@ -1,0 +1,20 @@
+model Malignancy {
+  id                String              @id @default(uuid())
+  name              String
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  PatientMalignancy PatientMalignancy[]
+}
+
+// many to many relationship between patient and malignancy, a connection table is created
+model PatientMalignancy {
+  id           String     @id @default(uuid())
+  patient      User       @relation("patientMalignancy", fields: [patientId], references: [id])
+  patientId    String
+  malignancy   Malignancy @relation(fields: [malignancyId], references: [id])
+  malignancyId String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@unique([patientId, malignancyId])
+}

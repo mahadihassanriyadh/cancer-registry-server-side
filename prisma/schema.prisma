@@ -26,9 +26,9 @@ model User {
   updatedAt        DateTime  @updatedAt
 
   // patient fields
-  malignancies   Malignancy[]
-  medicalReports MedicalReport[] @relation("userMeicalReport")
-  doctors        DoctorPatient[] @relation("doctorOfPatient")
+  malignancies   PatientMalignancy[] @relation("patientMalignancy")
+  medicalReports MedicalReport[]     @relation("userMedicalReport")
+  doctors        DoctorPatient[]     @relation("doctorOfPatient")
 
   // doctor fields
   treatedPatients DoctorPatient[] @relation("patientOfDoctor")
@@ -43,11 +43,24 @@ enum Role {
 }
 
 model Malignancy {
-  id        String   @id @default(uuid())
-  name      String
-  patients  User[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                String              @id @default(uuid())
+  name              String
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  PatientMalignancy PatientMalignancy[]
+}
+
+// many to many relationship between patient and malignancy, a connection table is created
+model PatientMalignancy {
+  id           String     @id @default(uuid())
+  patient      User       @relation("patientMalignancy", fields: [patientId], references: [id])
+  patientId    String
+  malignancy   Malignancy @relation(fields: [malignancyId], references: [id])
+  malignancyId String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@unique([patientId, malignancyId])
 }
 
 model MedicalTest {
@@ -60,10 +73,10 @@ model MedicalTest {
 
 model MedicalReport {
   id        String      @id @default(uuid())
-  data      Json
+  data      Json        @default("{}")
   test      MedicalTest @relation(fields: [testId], references: [id])
   testId    String
-  patient   User        @relation("userMeicalReport", fields: [patientId], references: [id])
+  patient   User        @relation("userMedicalReport", fields: [patientId], references: [id])
   patientId String
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
