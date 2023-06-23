@@ -1,0 +1,10 @@
+{
+   "version": 2,
+   "name": "cancer-registry-server",
+   "builds": [
+      { "src": "/src/script.ts", "use": "@vercel/node" }
+   ],
+   "routes": [
+      { "src": "/(.*)", "dest": "/src/script.ts/app.js" }
+   ]
+}
