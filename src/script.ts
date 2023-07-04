@@ -27,7 +27,7 @@ app.post(`/createUser`, async (req: { body: any }, res: { json: any }) => {
     }
     catch (error: any) {
         res.json({ message: error.message })
-        // console.log(error)     
+             
     }
 })
 
@@ -39,7 +39,7 @@ app.get(`/getUsers`, async (req: any, res: { json: any }) => {
     }
     catch (error: any) {
         res.json({ message: error.message })
-        // console.log(error)     
+             
     }
 })
 
@@ -55,7 +55,7 @@ app.get(`/getPatients`, async (req: any, res: { json: any }) => {
     }
     catch (error: any) {
         res.json({ message: error.message })
-        // console.log(error)     
+             
     }
 })
 
@@ -71,7 +71,7 @@ app.get(`/getDoctors`, async (req: any, res: { json: any }) => {
     }
     catch (error: any) {
         res.json({ message: error.message })
-        // console.log(error)     
+             
     }
 })
 
@@ -93,7 +93,7 @@ app.get(`/getUser`, async (req: { body: any }, res: { json: any }) => {
     }
     catch (error: any) {
         res.json({ message: error.message })
-        // console.log(error)     
+             
     }
 })
 
@@ -122,7 +122,7 @@ app.put(`/updateUser`, async (req: { body: any }, res: { json: any }) => {
     }
     catch (error: any) {
         res.json({ message: error.message })
-        // console.log(error)     
+             
     }
 })
 
@@ -142,7 +142,7 @@ app.delete(`/deleteUser`, async (req: { body: { id: any; }; }, res: { json: any 
     }
     catch (error: any) {
         res.json({ message: error.message })
-        // console.log(error)     
+             
     }
 })
 
@@ -165,7 +165,7 @@ app.post(`/connectDoctorPatient`, async (req: { body: any }, res: { json: any })
     }
     catch (error: any) {
         res.json({ message: error.message })
-        // console.log(error)     
+             
     }
 })
 
@@ -191,7 +191,7 @@ app.get(`/getPatientsOfDoctor`, async (req: { body: any }, res: { json: any }) =
     }
     catch (error: any) {
         res.json({ message: error.message })
-        // console.log(error)     
+             
     }
 })
 
@@ -217,7 +217,6 @@ app.get(`/getDoctorsOfPatient`, async (req: { body: any }, res: { json: any }) =
     }
     catch (error: any) {
         res.json({ message: error.message })
-        // console.log(error)     
     }
 })
 
@@ -240,7 +239,7 @@ app.delete(`/deleteDoctorPatient`, async (req: { body: any }, res: { json: any }
     }
     catch (error: any) {
         res.json({ message: error.message })
-        // console.log(error)     
+             
     }
 })
 
@@ -262,7 +261,7 @@ app.post(`/createMedicalTest`, async (req: { body: any }, res: { json: any }) =>
     }
     catch (error: any) {
         res.json({ message: error.message })
-        // console.log(error)     
+             
     }
 })
 
@@ -274,7 +273,7 @@ app.get(`/getMedicalTests`, async (req: any, res: { json: any }) => {
     }
     catch (error: any) {
         res.json({ message: error.message })
-        // console.log(error)     
+             
     }
 })
  
@@ -307,7 +306,6 @@ app.post(`/createMedicalReport`, async (req: { body: { patientId: string, testId
     }
     catch (error: any) {
         res.json({ message: error.message })
-        // console.log(error)     
     }
 })
 
@@ -329,7 +327,7 @@ app.post(`/createMalignancy`, async (req: { body: any }, res: { json: any }) => 
     }
     catch (error: any) {
         res.json({ message: error.message })
-        // console.log(error)     
+             
     }
 })
 
@@ -341,7 +339,7 @@ app.get(`/getMalignancies`, async (req: any, res: { json: any }) => {
     }
     catch (error: any) {
         res.json({ message: error.message })
-        // console.log(error)     
+             
     }
 })
 
@@ -364,7 +362,7 @@ app.post(`/connectPatientMalignancy`, async (req: { body: any }, res: { json: an
     }
     catch (error: any) {
         res.json({ message: error.message })
-        // console.log(error)     
+             
     }
 })
 
